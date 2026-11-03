@@ -1,7 +1,7 @@
 import { useState } from "react"
-import ClaudeRecipe from "./ClaudeRecipe"
 import IngredientsList from "./IngredientsList"
 import { getRecipeFromGoogleGenai } from "../ai"
+import GeminiRecipe from "./GeminiRecipe"
 
 export default function Main() {
 
@@ -40,7 +40,7 @@ export default function Main() {
 
             {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />}
 
-            { recipe && <ClaudeRecipe recipe={recipe} />}
+            { recipe && <GeminiRecipe recipe={recipe} />}
 
         </main>
     )
