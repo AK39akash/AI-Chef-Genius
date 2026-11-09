@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import IngredientsList from "./IngredientsList"
 import { getRecipeFromGoogleGenai } from "../ai"
 import GeminiRecipe from "./GeminiRecipe"
@@ -10,6 +10,14 @@ export default function Main() {
     )
 
     const [recipe, setRecipe] = useState("")
+
+    const recipeSection = useRef(null)
+    
+    useEffect(() => {
+        if (recipe !== "" && recipeSection.current !== null) {
+            recipeSection.current.scrollIntoView({ behavior: "smooth"})
+        }
+    }, [ recipe])
 
 
     function addIngredient(formData) {               
@@ -38,7 +46,13 @@ export default function Main() {
                 <button>Add ingredient</button>
             </form>
 
-            {ingredients.length > 0 && <IngredientsList ingredients={ingredients} getRecipe={getRecipe} />}
+            {ingredients.length > 0 && 
+                <IngredientsList 
+                    ref={recipeSection}
+                    ingredients={ingredients} 
+                    getRecipe={getRecipe} 
+                />
+            }
 
             { recipe && <GeminiRecipe recipe={recipe} />}
 
